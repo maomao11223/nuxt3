@@ -1,7 +1,8 @@
+import { ErrorMessage } from "./.nuxt/components.d";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	devtools: { enabled: true },
-	css: ["~/assets/scss/main.scss"],
+	css: ["@/assets/scss/main.scss"],
 	app: {
 		pageTransition: {
 			name: "page",
@@ -12,7 +13,19 @@ export default defineNuxtConfig({
 			mode: "out-in",
 		},
 	},
-	modules: ["@nuxtjs/i18n"],
+	modules: [
+		"@nuxtjs/i18n",
+		"@vee-validate/nuxt",
+		//Icon https://ithelp.ithome.com.tw/m/articles/10335953
+		"nuxt-icon",
+		"unplugin-icons/nuxt",
+		"@pinia/nuxt",
+	],
+	plugins: [{ src: "@/plugins/mock.js", ssr: true }],
+	veeValidate: {
+		// disable or enable auto imports
+		autoImports: true,
+	},
 	i18n: {
 		langDir: "locales",
 		locales: [
@@ -26,12 +39,12 @@ export default defineNuxtConfig({
 				iso: "zh-TW",
 				file: "zh-tw.json",
 			},
-    ],
-    strategy:'no_prefix',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey:'i18n_redirected'
-    },
+		],
+		strategy: "no_prefix",
+		detectBrowserLanguage: {
+			useCookie: true,
+			cookieKey: "i18n_redirected",
+		},
 		defaultLocale: "zh-tw",
 	},
 });

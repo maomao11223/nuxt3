@@ -1,5 +1,14 @@
 {
     "hello": "Hello!",
-    "select":"Open this select menu",
-    "id":"id"
+    "select": "Open this select menu",
+    "id": "id",
+    "home": "Home",
+    "todo": "Todo",
+    "placeholder": {
+        "enter": "place enter",
+        "example": "ex:"
+    },
+    "title": "Title",
+    "content": "Content",
+    "submit": "Submit"
 }

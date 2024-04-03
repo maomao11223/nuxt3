@@ -1,0 +1,17 @@
+.form {
+	.font-expand {
+		min-width: 50px;
+		text-align: justify;
+		text-align-last: justify;
+	}
+	.required {
+		position: relative;
+
+		&::before {
+			content: "*";
+			position: absolute;
+			left: -8px;
+			color: $red;
+		}
+	}
+}
