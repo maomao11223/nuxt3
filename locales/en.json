@@ -10,5 +10,6 @@
     },
     "title": "Title",
     "content": "Content",
-    "submit": "Submit"
+    "submit": "Submit",
+    "done":"Done"
 }

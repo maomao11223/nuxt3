@@ -20,6 +20,7 @@ export default defineNuxtConfig({
         "nuxt-icon",
         "unplugin-icons/nuxt",
         "@pinia/nuxt",
+        "sweetalert2"
     ],
     veeValidate: {
         // disable or enable auto imports

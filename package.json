@@ -12,12 +12,15 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@vee-validate/nuxt": "^4.12.6",
+    "@vee-validate/yup": "^4.12.6",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1",
     "nuxt": "^3.11.1",
     "postcss-loader": "^8.1.1",
     "sass": "^1.72.0",
+    "sortablejs": "^1.15.2",
+    "sweetalert2": "^11.10.7",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "yup": "^1.4.0"
@@ -26,7 +29,6 @@
     "@iconify/json": "^2.2.196",
     "@nuxtjs/i18n": "^8.0.0",
     "@pinia/nuxt": "^0.5.1",
-    "mockjs": "^1.1.0",
     "nuxt-icon": "^0.6.10",
     "pinia": "^2.1.7",
     "unplugin-icons": "^0.18.5",

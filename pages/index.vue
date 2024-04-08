@@ -2,7 +2,9 @@
     setup
     lang="ts"
 >
+
 const title = ref('你好，世界')
+
 </script>
 
 <template>
@@ -16,4 +18,4 @@ const title = ref('你好，世界')
 .content {
     background-color: aqua;
 }
-</style>
+</style>~/apis/todo

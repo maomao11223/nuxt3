@@ -10,5 +10,6 @@
     },
     "title": "標題",
     "content": "內容",
-    "submit": "送出"
+    "submit": "送出",
+    "done":"完成"
 }
