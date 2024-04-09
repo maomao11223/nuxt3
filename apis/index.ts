@@ -1,5 +1,7 @@
-import * as todo from './todo'
+import * as todo from "./todo";
+import * as hello from "./hello";
 
-export default{
-    todo
-}
+export default {
+	todo,
+	hello,
+};

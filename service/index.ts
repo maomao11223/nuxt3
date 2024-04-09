@@ -1,8 +1,9 @@
 import { UseFetchOptions, useFetch } from "nuxt/app";
+ 
 
 type Methods = "GET" | "POST" | "DELETE" | "PUT";
 
-const BASE_URL = "http://localhost:8090";
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
 export interface IResultData<T> {
 	code: number;
@@ -32,8 +33,9 @@ class HttpRequest {
 				newOptions.body = data;
 			}
 
-			useFetch(url, newOptions)
+			$fetch(url, newOptions)
 				.then((res) => {
+					console.log('service',res)
 					resolve(res);
 				})
 				.catch((error) => {
