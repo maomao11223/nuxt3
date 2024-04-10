@@ -2,37 +2,29 @@
     setup
     lang="ts"
 >
+const { $wow } = useNuxtApp();
+const title = ref("學習筆記")
 
-import Api from '@/apis/index'
-const title = ref('你好，世界')
-
-const res = ref<string>('')
-
-const getHello =async () => {
-     res.value = await Api.hello.getHello(); 
-    // res.value = await $fetch('/api/hello') 
-    console.log(res.value)
+useHead({
+    title: 'Learning Notes',
+    meta: [
+        { name: 'description', content: 'My Learning Notes' }
+    ]
+})
 
 
-}
 
 onMounted(async () => {
-    await getHello();
+    $wow().init();
 })
- 
+
 </script>
 
 <template>
-    <div class="content home-header">
-        <h1 class="animte_animated animate__bounce">{{ title }}</h1>
+    <div class="content home-header container pt-4 text-white">
+        <h1 class="xyz-in" xyz="fade up big">{{ title }}</h1>
         <p>{{ $t('hello') }}</p>
-
-        {{ res }}
+        <p>努力看到天花板!</p>
     </div>
 
 </template>
-<style scope>
-.content {
-    background-color: aqua;
-}
-</style>~/apis/todo

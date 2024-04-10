@@ -14,15 +14,11 @@ const todoStore = useTodoStore();
 
 const { todoList } = storeToRefs(todoStore)
 
-const emits = defineEmits(['editRow'])
+const emits = defineEmits(['removeRow'])
 
 const dragList = ref(null)
 
 const chooseCard = ref()
-
-// const list = ref([
-//     { id: 1, title: '1', content: '123', done: false }
-// ])
 
 const setDone = async (inItem: Object) => {
     const targetItem = todoList.value.find(item => {
@@ -32,12 +28,11 @@ const setDone = async (inItem: Object) => {
 
     await todoStore.updItem(inItem);
 
-
 }
 
 
-const editHandler = (inItem: Object) => {
-    emits('editRow', inItem)
+const removeHandler = (inItem: Object) => {
+    emits('removeRow', inItem)
 }
 
 const initDragNDrop = () => {
@@ -53,7 +48,7 @@ const initDragNDrop = () => {
             if (evt.oldIndex !== evt.newIndex) {
                 todoList.value.splice(evt.oldIndex, 1)
                 todoList.value.splice(evt.newIndex, 0, chooseCard.value)
-                console.log( chooseCard.value)
+                console.log(chooseCard.value)
                 todoStore.updItem({ id: chooseCard.value.id, title: chooseCard.value.title, content: chooseCard.value.content })
             }
         },
@@ -66,21 +61,20 @@ const initDragNDrop = () => {
 onMounted(async () => {
     await todoStore.getList();
     initDragNDrop();
-
 })
 </script>
 <template>
     <pre>
     </pre>
-    <section ref="dragList">
+    <section ref="dragList" >
         <div
-            class="card mb-2 item cursor-pointer"
+            class="card mb-2 item cursor-pointer bg-transparent border-white"
             v-for="(item, index) in todoList"
             :key="item.id"
+            v-auto-animate
         >
             <div class="card-body">
                 <div class="d-flex align-items-start">
-                    <!-- <div style="width:50px"> -->
                     <template v-if="item.done">
                         <button
                             @click="setDone(item)"
@@ -101,18 +95,23 @@ onMounted(async () => {
                         </button>
 
                     </template>
-                    <!-- </div> -->
                     <div class="flex-grow-1">
-                        <p>{{ item.title }}</p>
-                        <p>{{ item.content }}</p>
+                        <p class="text-white">
+                            <del v-if="item.done">
+                                {{ item.content }}
+                            </del>
+                            <template v-else>
+                                {{ item.content }}
+                            </template>
+                        </p>
                     </div>
                     <div class="mx-auto"><button
-                            @click="editHandler(item)"
+                            @click="removeHandler(item)"
                             class="btn btn-text p-0 pe-2"
                         >
                             <Svg
-                                name="iconamoon:edit-light"
-                                class="text-secondary"
+                                name="gg:remove"
+                                class="text-danger"
                             ></Svg>
                         </button></div>
                 </div>

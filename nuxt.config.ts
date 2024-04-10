@@ -3,11 +3,15 @@ import { ErrorMessage } from "./.nuxt/components.d";
 export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
-			apiBase:'/api'
-		}
+			apiBase: "/api",
+		},
 	},
 	devtools: { enabled: true },
-	css: ["@/assets/scss/main.scss", "animate.css/animate.min.css"],
+	css: [
+		"@/assets/scss/main.scss",
+		"animate.css/animate.css",
+		"@animxyz/core/dist/animxyz.css",
+	],
 	app: {
 		pageTransition: {
 			name: "page",
@@ -17,7 +21,18 @@ export default defineNuxtConfig({
 			name: "layout",
 			mode: "out-in",
 		},
+		head: {
+			charset: "utf-8",
+			viewport: "width=device-width, initial-scale=1",
+			link: [
+				{
+					rel: "stylesheet",
+					href: "https://834832894.r.cdn36.com/chinesefonts3/packages/jpdzt/dist/BoutiqueBitmap9x9_1_6/result.css",
+				},
+			],
+		},
 	},
+
 	modules: [
 		"@nuxtjs/i18n",
 		"@vee-validate/nuxt",
@@ -26,10 +41,18 @@ export default defineNuxtConfig({
 		"unplugin-icons/nuxt",
 		"@pinia/nuxt",
 		"@nuxt/test-utils/module",
+		//https://auto-animate.formkit.com/#usage-vue
+		"@formkit/auto-animate/nuxt",
 	],
 	veeValidate: {
 		// disable or enable auto imports
 		autoImports: true,
+		componentNames: {
+			Form: "VeeForm",
+			Field: "VeeField",
+			FieldArray: "VeeFieldArray",
+			ErrorMessage: "VeeErrorMessage",
+		},
 	},
 	i18n: {
 		langDir: "locales",

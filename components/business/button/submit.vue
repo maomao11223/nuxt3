@@ -8,9 +8,8 @@ const emits = defineEmits(['onClick'])
 </script>
 <template>
     <button
-        type="submit"
         class="btn btn-primary"
-        @click="() => { emits('onClick') }"
+        @click.prevent="() => {  emits('onClick') }"
     >{{ $t('submit') }}</button>
 </template>
 <style scoped></style>

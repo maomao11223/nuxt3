@@ -4,6 +4,7 @@
     "id": "編號",
     "home": "首頁",
     "todo": "Todo",
+    "tictactoe": "圈圈叉叉",
     "placeholder": {
         "enter": "請輸入",
         "example": "ex:"

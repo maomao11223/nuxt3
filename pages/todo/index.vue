@@ -2,12 +2,6 @@
   setup
   lang='ts'
 >
-import { ref } from 'vue';
-import BaseInput from '~/components/common/input/base.vue';
-import BaseTextarea from '~/components/common/textarea/base.vue';
-import SubmitBtn from '~/components/business/button/submit.vue';
-import ValidateLabel from '~/components/business/validateLabel/base.vue';
-
 import * as yup from 'yup'
 
 import CardList from '@/components/business/todo/list/index.vue';
@@ -17,100 +11,68 @@ import { useTodoStore } from '@/stores/todoStore'
 
 const todoStore = useTodoStore();
 
+const { todoList } = storeToRefs(todoStore)
 
-const schema = yup.object({
-  title: yup.number().required(),
-})
-
-const { values, errors, defineField } = useForm({
-  validationSchema: schema,
-});
-
-const [title, titleAttrs] = defineField('title')
-
-
-const formValue = ref({
-  id: '0',
-  content: '',
-  done: false
-})
-
-const editHandler = (inItem: Object) => {
-  console.log("🚀 ~ inItem:", inItem);
-
-  title.value = inItem.title;
-  formValue.value.id = inItem.id;
-  formValue.value.content = inItem.content;
-  formValue.value.done = inItem.done;
-
+const schema = {
+  content: 'required',
+  id: ''
 }
 
 
-const submitHandler = () => {
-  if (formValue.value.id === '0') {
-    //add api
-  } else {
-    //edit api
-    todoStore.updItem({ id: formValue.value.id, title: title, content: formValue.value.content })
-  }
+const removeHandler = (inItem: Object) => {
+  todoList.value = todoList.value.filter(item => {
+    return item !== inItem
+  })
+}
+
+
+const submitHandler = (value) => {
+  console.log("🚀 ~ value:", value);
+  todoList.value.push({ content: value.content })
+
+
 }
 
 
 </script>
 <template>
   <div class="container pt-4">
-    <div class="card mb-4">
+    <div class="card mb-4 bg-transparent border-0">
       <div class="card-body">
-        <form class="form">
-          <div class="mb-3">
-            <ValidateLabel
-              label="title"
-              :errors="errors"
-            >
-              <template #inputField>
-                <div class="col-auto">
-                  <BaseInput
-                    v-model:value="title"
-                    v-bind="titleAttrs"
-                  ></BaseInput>
-                </div>
-              </template>
-            </ValidateLabel>
+        <VeeForm
+          @submit="submitHandler"
+          v-slot="{ isSubmitting }"
+          :validation-schema="schema"
+          class="d-flex justify-content-between"
+        >
+          <div class="col-11">
+            <VeeField
+              class="form-control w-100"
+              name="content"
+              type=""
+            ></VeeField>
+            <VeeErrorMessage
+              class="text-danger"
+              name="content"
+            ></VeeErrorMessage>
           </div>
-          <div class="mb-3">
-            <ValidateLabel
-              label="content"
-              :required="false"
+          <div>
+            <button
+              class="btn btn-primary text-nowrap"
+              type="submit"
+              :disable="isSubmitting"
             >
-              <template #inputField>
-                <div class="col-auto">
-                  <BaseTextarea v-model:value="formValue.content"></BaseTextarea>
-                </div>
-              </template>
-            </ValidateLabel>
+              <span
+                class="spinner"
+                v-show="isSubmitting"
+              ></span>
+              {{ $t('submit') }}
+            </button>
           </div>
-          <div class="mb-3">
-            <ValidateLabel
-              label="done"
-              :required="false"
-            >
-              <template #inputField>
-                <div class="col-auto d-flex">
-                  <input
-                    class="form-check-input my-auto"
-                    type="checkbox"
-                    :value="formValue.done"
-                    id="flexCheckDefault"
-                  >
-                </div>
-              </template>
-            </ValidateLabel>
-          </div>
-          <SubmitBtn @onClick="submitHandler"></SubmitBtn>
-        </form>
+        </VeeForm>
       </div>
     </div>
-    <CardList @editRow="editHandler"></CardList>
+    <CardList @removeRow="removeHandler"></CardList>
   </div>
 </template>
 <style scoped>

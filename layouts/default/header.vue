@@ -2,11 +2,10 @@
     setup
     lang='ts'
 >
-import BaseSelect from '~/components/common/select/base.vue'
-import { ref } from 'vue'
-const { setLocale } = useI18n();
 
-const { $bootstrap } = useNuxtApp();
+import Svg from '@/components/common/svg/base.vue'
+import BaseSelect from '~/components/common/select/base.vue'
+const { setLocale } = useI18n();
 
 const localeOpts = ref([{
     value: 'en',
@@ -23,7 +22,6 @@ if (!selectedLocale.value) {
 }
 
 const getSelected = async (inValue) => {
-    console.log(inValue);
     selectedLocale.value = inValue;
 
     await setLocale(inValue);
@@ -34,6 +32,10 @@ const menuList = ref([
         name: 'todo',
         routerName: '/todo',
         children: []
+    }, {
+        name: 'tictactoe',
+        routerName: '/tictactoe',
+        children: []
     }
 ])
 
@@ -42,21 +44,19 @@ const menuList = ref([
 
 </script>
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container-fluid">
-            <a
+            <NuxtLink
                 class="navbar-brand"
-                href="#"
-            >Navbar</a>
-            <div class="col-auto">
-                <base-select
-                    :options="localeOpts"
-                    :selected="selectedLocale"
-                    @onSelect="getSelected"
-                ></base-select>
-            </div>
+                to="/"
+            >
+                <Svg
+                    name="solar:planet-bold"
+                    class="text-white"
+                ></Svg>
+            </NuxtLink>
             <button
-                class="navbar-toggler"
+                class="navbar-toggler border-white"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent"
@@ -64,26 +64,38 @@ const menuList = ref([
                 aria-expanded="false"
                 aria-label="Toggle navigation"
             >
-                <span class="navbar-toggler-icon"></span>
+            <Svg
+            name="material-symbols:menu"
+            class="text-white"
+        ></Svg>
             </button>
             <div
                 class="collapse navbar-collapse"
                 id="navbarSupportedContent"
             >
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
                     <li
-                        class="nav-item"
+                        class="nav-item "
                         v-for="m in menuList"
                         :key="m.routerName"
                     >
                         <NuxtLink
-                            class="nav-link"
+                            class="nav-link text-white"
                             :to="m.routerName"
                         >{{ $t(m.name) }}</NuxtLink>
+                    </li>
+                    <li class="ms-lg-auto col-auto">
+                        <div class="">
+                            <base-select
+                                :options="localeOpts"
+                                :selected="selectedLocale"
+                                @onSelect="getSelected"
+                            ></base-select>
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-</template>
-<style scoped></style>
+</template> 
+<style></style>

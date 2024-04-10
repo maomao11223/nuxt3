@@ -4,6 +4,7 @@
     "id": "id",
     "home": "Home",
     "todo": "Todo",
+    "tictactoe": "TicTacToe",
     "placeholder": {
         "enter": "place enter",
         "example": "ex:"
