@@ -30,7 +30,7 @@ const getSelected = async (inValue) => {
 const menuList = ref([
     {
         name: 'todo',
-        routerName: '/todo',
+        routerName: '/todo2',
         children: []
     }, {
         name: 'tictactoe',

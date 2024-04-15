@@ -13,10 +13,7 @@ const todoStore = useTodoStore();
 
 const { todoList } = storeToRefs(todoStore)
 
-const schema = {
-  content: 'required',
-  id: ''
-}
+const content = ref('')
 
 
 const removeHandler = (inItem: Object) => {
@@ -26,9 +23,9 @@ const removeHandler = (inItem: Object) => {
 }
 
 
-const submitHandler = (value) => {
-  console.log("🚀 ~ value:", value);
-  todoList.value.push({ content: value.content })
+const submitHandler = () => {
+
+  todoList.value.push({ content: content.value })
 
 
 }
@@ -39,44 +36,27 @@ const submitHandler = (value) => {
   <div class="container pt-4">
     <div class="card mb-4 bg-transparent border-0">
       <div class="card-body">
-        <VeeForm
-          @submit="submitHandler"
-          v-slot="{ isSubmitting }"
-          :validation-schema="schema"
+        <form
+          @submit.prevent="submitHandler"
           class="d-flex justify-content-between"
         >
           <div class="col-11">
-            <VeeField
-              class="form-control w-100"
-              name="content"
+            <input
               type="text"
-            ></VeeField>
-            <VeeErrorMessage
-              class="text-danger"
-              name="content"
-            ></VeeErrorMessage>
+              v-model="content"
+            >
           </div>
           <div>
             <button
               class="btn btn-primary text-nowrap"
               type="submit"
-              :disable="isSubmitting"
             >
-              <span
-                class="spinner"
-                v-show="isSubmitting"
-              ></span>
               {{ $t('submit') }}
             </button>
           </div>
-        </VeeForm>
+        </form>
       </div>
     </div>
     <CardList @removeRow="removeHandler"></CardList>
   </div>
 </template>
-<style scoped>
-.content {
-  background-color: yellow;
-}
-</style>
